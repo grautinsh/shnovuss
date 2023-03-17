@@ -163,11 +163,26 @@ async function populatePlayerDropdowns() {
 }
 
 // Function to update the recent games list
+let currentPage = 1;
+const gamesPerPage = 20;
+
 async function updateRecentGames() {
+    const { data: totalGames, error: countError } = await supabaseClient
+        .from('games')
+        .select('id', { count: 'exact' });
+
+    if (countError) {
+        console.error("Error counting games:", countError);
+        return;
+    }
+
+    const totalPages = Math.ceil(totalGames.length / gamesPerPage);
+
     const { data: recentGames, error } = await supabaseClient
         .from('games')
         .select('*, created_at')
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .range((currentPage - 1) * gamesPerPage, currentPage * gamesPerPage - 1);
 
     if (error) {
         console.error("Error fetching recent games:", error);
@@ -183,7 +198,38 @@ async function updateRecentGames() {
         listItem.textContent = `${gameDate} - ${game.player1} vs ${game.player2} - Winner: ${game.winner} - Rounds: ${game.rounds1}-${game.rounds2}`;
         recentGamesList.appendChild(listItem);
     });
+
+    document.getElementById("page-info").textContent = `Page ${currentPage}`;
+
+    document.getElementById("prev-page").disabled = currentPage === 1;
+    document.getElementById("next-page").disabled = currentPage === totalPages;
 }
+
+document.getElementById("prev-page").addEventListener("click", () => {
+    if (currentPage > 1) {
+        currentPage--;
+        updateRecentGames();
+    }
+});
+
+document.getElementById("next-page").addEventListener("click", async () => {
+    const { data: totalGames, error: countError } = await supabaseClient
+        .from('games')
+        .select('id', { count: 'exact' });
+
+    if (countError) {
+        console.error("Error counting games:", countError);
+        return;
+    }
+
+    const totalPages = Math.ceil(totalGames.length / gamesPerPage);
+
+    if (currentPage < totalPages) {
+        currentPage++;
+        updateRecentGames();
+    }
+});
+
 
 // Function to update the leaderboard
 async function updateLeaderboard() {
