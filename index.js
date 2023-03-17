@@ -208,7 +208,7 @@ async function updateLeaderboard() {
         row.appendChild(nameCell);
 
         const ratingCell = document.createElement("td");
-        ratingCell.textContent = player.rating.toFixed(2);
+        ratingCell.textContent = player.rating.toFixed(0);
         row.appendChild(ratingCell);
 
         const gamesPlayedCell = document.createElement("td");
