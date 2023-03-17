@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>SHNOVUSS</title>
+</head>
+<body>
+    <h1>SHNOVUSS</h1>
+    <form id="game-form">
+        <label for="player1">Player 1:</label>
+        <select id="player1" name="player1" required>
+            <!-- Player options will be added here dynamically -->
+        </select>
+        <label for="player2">Player 2:</label>
+        <select id="player2" name="player2" required>
+            <!-- Player options will be added here dynamically -->
+        </select>
+        <label for="rounds1">Rounds Won by Player 1:</label>
+        <input type="number" id="rounds1" name="rounds1" min="0" required>
+        <label for="rounds2">Rounds Won by Player 2:</label>
+        <input type="number" id="rounds2" name="rounds2" min="0" required>
+        <button type="submit" id="submit-button">Submit <span id="timer"></span></button>
+
+    </form>
+    <button id="delete-last-game" type="button">Delete Last Game</button>
+    <section id="recent-games">
+        <h2>Recently Played Games</h2>
+        <ul id="recent-games-list">
+            <!-- Recent games will be added here dynamically -->
+        </ul>
+    </section>
+    <section id="leaderboard">
+        <h2>Leaderboard</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Rating</th>
+                    <th>Games Played</th>
+                    <th>Games Won</th>
+                    <th>Games Lost</th>
+                    <th>Rounds Won</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+                <!-- Leaderboard data will be added here dynamically -->
+            </tbody>
+        </table>
+    </section>
+    <script src="index.js">
+    </script>
+</body>
+</html>
