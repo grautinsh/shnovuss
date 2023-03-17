@@ -1,60 +1,98 @@
+/* General styles */
 body {
     font-family: Arial, sans-serif;
-    margin-top: -20px;
-    margin-left: 50px;
-    margin-right: 50px;
+    background-color: #f4f4f4;
+    margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
 }
 
-h1 {
-    background-color: #4a90e2;
-    color: white;
-    padding: 20px;
-    margin-bottom: 40px;
+h1, h2 {
+    margin: 20px 40px;
 }
 
+/* Form styles */
 form {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 40px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#game-form {
+    width: 50%;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
 }
 
-label, input, select, button {
-    font-size: 16px;
+#rounds1, #rounds2 {
+    width: 50px;
 }
 
-input, select, button {
-    padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
+#submit-button {
+    margin-top: auto;
 }
 
-button {
-    background-color: #4a90e2;
-    color: white;
-    cursor: pointer;
-    border: none;
+label {
+    display: block;
+    margin-bottom: 5px;
 }
 
-button:hover {
-    background-color: #2c7ad9;
-}
-
-section {
-    margin: 40px 0;
-}
-
-h2 {
+input[type="number"],
+select {
+    width: 100%;
+    padding: 5px;
     margin-bottom: 20px;
 }
 
+button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+/* Recently played games section */
+section {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 40px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: #eee;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+#delete-last-game {
+    margin: 20px 40px;
+}
+
+/* Pagination */
+#pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Leaderboard styles */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -63,9 +101,14 @@ table {
 th, td {
     padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #ccc;
 }
 
-thead tr {
-    background-color: #f0f0f0;
+th {
+    background-color: #333;
+    color: #fff;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
