@@ -279,6 +279,11 @@ async function updateLeaderboard() {
 }
 
 async function deleteLastGame() {
+
+    if (!confirm("Vai tiešām izdzēst? Atgriezt vairs nevarēs!")) {
+        return; // Exit the function if the user clicks "Cancel"
+    }
+
     // Fetch the most recent game
     const { data: lastGame, error: fetchError } = await supabaseClient
         .from('games')
