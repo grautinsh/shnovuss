@@ -164,7 +164,7 @@ async function populatePlayerDropdowns() {
 
 // Function to update the recent games list
 let currentPage = 1;
-const gamesPerPage = 20;
+const gamesPerPage = 15;
 
 async function updateRecentGames() {
     const { data: totalGames, error: countError } = await supabaseClient
@@ -199,7 +199,7 @@ async function updateRecentGames() {
         recentGamesList.appendChild(listItem);
     });
 
-    document.getElementById("page-info").textContent = `Page ${currentPage}`;
+    document.getElementById("page-info").textContent = `Page ${currentPage}/${totalPages}`; // Updated this line
 
     document.getElementById("prev-page").disabled = currentPage === 1;
     document.getElementById("next-page").disabled = currentPage === totalPages;
