@@ -246,8 +246,21 @@ async function updateLeaderboard() {
     const leaderboardBody = document.getElementById("leaderboard-body");
     leaderboardBody.innerHTML = '';
 
-    players.forEach(player => {
+    players.forEach((player, index) => {
         const row = document.createElement("tr");
+
+        const placementCell = document.createElement("td");
+        placementCell.classList.add("column-width");
+        if (index < 3) {
+            const placementImage = document.createElement("img");
+            placementImage.src = `image_${index + 1}.png`; // Replace this with the actual image paths
+            placementImage.alt = `${index + 1} place`;
+            placementImage.style.width = '30px'; // Adjust the image size according to your preference
+            placementCell.appendChild(placementImage);
+        } else {
+            placementCell.textContent = index + 1 + ".";
+        }
+        row.appendChild(placementCell);
 
         const nameCell = document.createElement("td");
         nameCell.textContent = player.name;

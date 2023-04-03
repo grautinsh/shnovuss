@@ -121,6 +121,11 @@ th {
     color: #fff;
 }
 
+
 tr:nth-child(even) {
     background-color: #f2f2f2;
+}
+
+.column-width {
+    width: 0; /* Adjust this value as needed */
 }
