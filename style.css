@@ -127,5 +127,6 @@ tr:nth-child(even) {
 }
 
 .column-width {
-    width: 0; /* Adjust this value as needed */
+    width: 10px; /* Adjust this value as needed */
+    text-align: center;
 }
