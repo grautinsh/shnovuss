@@ -149,6 +149,21 @@ async function populatePlayerDropdowns() {
     const player1Select = document.getElementById("player1");
     const player2Select = document.getElementById("player2");
 
+    // Create the default "Select Player" option for both dropdowns
+    const defaultOption1 = document.createElement("option");
+    defaultOption1.value = "";
+    defaultOption1.textContent = "Select Player";
+    defaultOption1.selected = true;
+    defaultOption1.disabled = true;
+    player1Select.appendChild(defaultOption1);
+
+    const defaultOption2 = document.createElement("option");
+    defaultOption2.value = "";
+    defaultOption2.textContent = "Select Player";
+    defaultOption2.selected = true;
+    defaultOption2.disabled = true;
+    player2Select.appendChild(defaultOption2);
+
     players.forEach(player => {
         const option1 = document.createElement("option");
         option1.value = player.name;
