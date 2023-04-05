@@ -243,52 +243,69 @@ async function updateLeaderboard() {
         return;
     }
 
+    const rankedPlayers = players.filter(player => player.games_played >= 10);
+    const unrankedPlayers = players.filter(player => player.games_played < 10).sort((a, b) => b.games_played - a.games_played);
+    const lastPlaceIndex = rankedPlayers.length - 1;
+
     const leaderboardBody = document.getElementById("leaderboard-body");
+    const unrankedBody = document.getElementById("unranked-body");
     leaderboardBody.innerHTML = '';
+    unrankedBody.innerHTML = '';
 
-    players.forEach((player, index) => {
-        const row = document.createElement("tr");
+    let rankedIndex = 0;
+    rankedPlayers.forEach(player => createTableRow(player, true, rankedIndex++, lastPlaceIndex, leaderboardBody));
+    unrankedPlayers.forEach(player => createTableRow(player, false, null, null, unrankedBody));
+}
 
+function createTableRow(player, isRanked, rankedIndex, lastPlaceIndex, tableBody) {
+    const row = document.createElement("tr");
+
+    if (isRanked) {
         const placementCell = document.createElement("td");
         placementCell.classList.add("column-width");
-        if (index < 3) {
+        if (rankedIndex < 3 || rankedIndex === lastPlaceIndex) {
             const placementImage = document.createElement("img");
-            placementImage.src = `image_${index + 1}.png`; // Replace this with the actual image paths
-            placementImage.alt = `${index + 1} place`;
+            if (rankedIndex < 3) {
+                placementImage.src = `image_${rankedIndex + 1}.png`; // Replace this with the actual image paths for top 3
+            } else {
+                placementImage.src = `image_last_place.png`; // Replace this with the actual image path for last place
+            }
+            placementImage.alt = `${rankedIndex + 1} place`;
             placementImage.style.width = '30px'; // Adjust the image size according to your preference
             placementCell.appendChild(placementImage);
         } else {
-            placementCell.textContent = index + 1 + ".";
+            placementCell.textContent = rankedIndex + 1 + ".";
         }
         row.appendChild(placementCell);
+    }
 
-        const nameCell = document.createElement("td");
-        nameCell.textContent = player.name;
-        row.appendChild(nameCell);
+    const nameCell = document.createElement("td");
+    nameCell.textContent = player.name;
+    row.appendChild(nameCell);
 
+    if (isRanked) {
         const ratingCell = document.createElement("td");
         ratingCell.textContent = player.rating.toFixed(0);
         row.appendChild(ratingCell);
+    }
 
-        const gamesPlayedCell = document.createElement("td");
-        gamesPlayedCell.textContent = player.games_played;
-        row.appendChild(gamesPlayedCell);
+    const gamesPlayedCell = document.createElement("td");
+    gamesPlayedCell.textContent = player.games_played;
+    row.appendChild(gamesPlayedCell);
 
-        const gamesWonCell = document.createElement("td");
-        gamesWonCell.textContent = player.games_won || 0;
-        row.appendChild(gamesWonCell);
-    
-        const gamesLostCell = document.createElement("td");
-        gamesLostCell.textContent = player.games_lost || 0;
-        row.appendChild(gamesLostCell);
-    
-        const roundsWonCell = document.createElement("td");
-        roundsWonCell.textContent = player.rounds_won || 0;
-        row.appendChild(roundsWonCell);
-        
+    const gamesWonCell = document.createElement("td");
+    gamesWonCell.textContent = player.games_won || 0;
+    row.appendChild(gamesWonCell);
 
-        leaderboardBody.appendChild(row);
-    });
+    const gamesLostCell = document.createElement("td");
+    gamesLostCell.textContent = player.games_lost || 0;
+    row.appendChild(gamesLostCell);
+
+    const roundsWonCell = document.createElement("td");
+    roundsWonCell.textContent = player.rounds_won || 0;
+    row.appendChild(roundsWonCell);
+
+    tableBody.appendChild(row);
 }
 
 async function deleteLastGame() {
